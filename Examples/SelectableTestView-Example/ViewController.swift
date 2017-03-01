@@ -32,7 +32,9 @@ class ViewController: UIViewController, SelectableTextViewDelegate {
         textView.text = "Hello, I'm {{my_name}}\0. I made \(githubLink) to solve the problem of highlighting and selecting specific text in UILabel and UITextView. An example is a hashtag like #Stars or an unsafe link like http://google.com\0!"
         
         let unsafeLinkValidator = UnsafeLinkValidator()
-        textView.registerValidator(validator: unsafeLinkValidator)
+        textView.registerValidator(validator: unsafeLinkValidator) { (text, validator) in
+            self.showAlert(title: "🚫", message: "This link is bad mm'kay!")
+        }
         
         textView.registerValidator(validator: UIClassValidator())
         
@@ -49,13 +51,17 @@ class ViewController: UIViewController, SelectableTextViewDelegate {
         }
         
         textView.registerValidator(validator: HashtagTextValidator()) { (text, validator) in
-            print("Selected \(text) with validator \(validator.identifier)")
             self.createParticles(seconds: 1)
         }
     }
     
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     func openWebView(url: URL) {
-        
         let browser = SFSafariViewController(url: url)
         present(browser, animated: true, completion: nil)
     }

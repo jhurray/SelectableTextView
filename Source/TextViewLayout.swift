@@ -365,7 +365,7 @@ internal final class TextViewLayout: UICollectionViewLayout {
                 let availableWidthForTruncatedText: CGFloat = floor(contentWidth - attributes.frame.minX - expansionButtonWidth)
                 let text = word.displayText ?? word.text
                 guard let truncatedString = text.truncatedStringFittingWidth(width: availableWidthForTruncatedText, attributes: word.attributes) else {
-                    assert(false, "Truncated string should fit")
+                    // JHTODO assert? should ever happen?
                     return nil
                 }
                 let truncatedStringWidth = truncatedString.widthWithAttributes(attributes: word.attributes)

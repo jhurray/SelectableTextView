@@ -33,7 +33,7 @@
                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                         <color key="value" cocoaTouchSystemColor="darkTextColor"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="text" value=" Hello World!! I like dogs!"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="text" value=" Hello World!"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="lineSpacing">
                                         <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>

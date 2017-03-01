@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum TextType {
+internal enum TextType {
     case word
     case space
     case newLine

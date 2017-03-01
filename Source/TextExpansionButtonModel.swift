@@ -21,7 +21,6 @@ internal struct TextExpansionButtonModel {
         return expanded ? expandedNumberOfLines : collapsedNumberOfLines
     }
     
-    
     var attributedText: NSAttributedString {
         if expanded {
             return NSAttributedString(string: expandedText, attributes: attributes)
