@@ -1,13 +1,13 @@
 <img class="center" src="./Resources/Logo.png">
-<div><div>
-<img width=33% src="./Resources/Feature1.png">
-<img width=33% src="./Resources/Feature2.png">
-<img width=33% src="./Resources/Feature3.png">
-</div><div>
-<img style="width: 33%;" src="./Resources/SelectableTextViewDemo1.gif">
-<img style="width: 33%;" src="./Resources/SelectableTextViewDemo2.gif">
-<img style="width: 33%;" src="./Resources/SelectableTextViewDemo3.gif">
-</div></div>
+<table><tr>
+<td width=33%><img src="./Resources/Feature1.png"></td>
+<td width=33%><img src="./Resources/Feature2.png"></td>
+<td width=33%><img src="./Resources/Feature3.png"></td>
+</tr><tr>
+<td width=33%><img src="./Resources/SelectableTextViewDemo1.gif"></td>
+<td width=33%><img src="./Resources/SelectableTextViewDemo2.gif"></td>
+<td width=33%><img src="./Resources/SelectableTextViewDemo3.gif"></td>
+</tr></table>
 
 ##The Problem
 `UILabel` and `UITextView` offer unsatisfying support for text selection.
