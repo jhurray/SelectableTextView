@@ -9,9 +9,9 @@ img.center {display: block; margin: 0 auto;}
 <img width=32% src="./Resources/Feature2.png">
 <img width=32% src="./Resources/Feature3.png">
 </div><div>
-<img class="border spaced" src="./Resources/SelectableTextViewDemo1.gif">
-<img class="border spaced" src="./Resources/SelectableTextViewDemo2.gif">
-<img class="spaced" src="./Resources/SelectableTextViewDemo3.gif">
+<img style="border-right: 1px solid #007AFF;margin-left: 3.5%; padding-right: 3.5%;width: 25%;" src="./Resources/SelectableTextViewDemo1.gif">
+<img style="border-right: 1px solid #007AFF;margin-left: 3.5%; padding-right: 3.5%;width: 25%;" src="./Resources/SelectableTextViewDemo2.gif">
+<img style="margin-left: 3.5%; padding-right: 3.5%;width: 25%;" src="./Resources/SelectableTextViewDemo3.gif">
 </div></div>
 
 ##The Problem
