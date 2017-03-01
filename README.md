@@ -1,17 +1,12 @@
-<style>
-.border {border-right: 1px solid #007AFF;}
-.spaced {margin-left: 3.5%; padding-right: 3.5%;width: 25%;}
-img.center {display: block; margin: 0 auto;}
-</style>
 <img class="center" src="./Resources/Logo.png">
 <div><div>
-<img width=32% src="./Resources/Feature1.png">
-<img width=32% src="./Resources/Feature2.png">
-<img width=32% src="./Resources/Feature3.png">
+<img width=33% src="./Resources/Feature1.png">
+<img width=33% src="./Resources/Feature2.png">
+<img width=33% src="./Resources/Feature3.png">
 </div><div>
-<img style="border-right: 1px solid #007AFF;margin-left: 3.5%; padding-right: 3.5%;width: 25%;" src="./Resources/SelectableTextViewDemo1.gif">
-<img style="border-right: 1px solid #007AFF;margin-left: 3.5%; padding-right: 3.5%;width: 25%;" src="./Resources/SelectableTextViewDemo2.gif">
-<img style="margin-left: 3.5%; padding-right: 3.5%;width: 25%;" src="./Resources/SelectableTextViewDemo3.gif">
+<img style="width: 33%;" src="./Resources/SelectableTextViewDemo1.gif">
+<img style="width: 33%;" src="./Resources/SelectableTextViewDemo2.gif">
+<img style="width: 33%;" src="./Resources/SelectableTextViewDemo3.gif">
 </div></div>
 
 ##The Problem
