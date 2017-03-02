@@ -4,9 +4,9 @@
 <td width=33%><img src="./Resources/Feature2.png"></td>
 <td width=33%><img src="./Resources/Feature3.png"></td>
 </tr><tr>
-<td width=33%><img src="./Resources/SelectableTextViewDemo1.gif"></td>
-<td width=33%><img src="./Resources/SelectableTextViewDemo2.gif"></td>
-<td width=33%><img src="./Resources/SelectableTextViewDemo3.gif"></td>
+<td width=33%><p align="center"><img src="./Resources/SelectableTextViewDemo1.gif"></p></td>
+<td width=33%><p align="center"><img src="./Resources/SelectableTextViewDemo2.gif"></p></td>
+<td width=33%><p align="center"><img src="./Resources/SelectableTextViewDemo3.gif"></p></td>
 </tr></table>
 
 ##The Problem
