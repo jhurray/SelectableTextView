@@ -14,6 +14,14 @@
 
 Existing solutions like [TTTAttributedLabel](https://github.com/TTTAttributedLabel/TTTAttributedLabel) are great but offer a somewhat limited API for text selection.
 
+##Features
+* [Text Selection](#text-selection)
+* [Text Expansion](#text-expansion)
+* [Customization](#customization)
+* [Prewritten Selection Validators](#validators)
+* [Interface Builder](#interface-builder)
+* [Scrolling](#scrolling)
+
 ##Installation
 
 ####CocoaPods
@@ -46,7 +54,7 @@ textView.numberOfLines = 3
 ...
 ```
 
-##Text Selection
+##Text Selection<a name="text-selection"></a>
 
 To create selectable text, you have to create and register a validator. The validator must conform to the `TextSelectionValidator` protocol.
 
@@ -69,7 +77,7 @@ textView.removeValidator(validator: hashtagValidator)
 
 There are other more specific protocols that make customization easier like `ContainerTextSelectionValidator` and `CompositeTextSelectionValidator`.
 
-###Prewritten Validators
+###Prewritten Validators<a name="validators"></a>
 
 There are a few prewritten validators supplied. These can be used as they are, as building blocks for other more complex validators, and as examples on how to build custom validators.
 
@@ -125,7 +133,7 @@ EmailValidator()
 PhoneNumberValidator()
 ```
 
-##Text Expansion
+##Text Expansion<a name="text-expansion"></a>
 
 <img align="right" src="./Resources/ExpansionDemo.gif">
 
@@ -162,7 +170,7 @@ You can customize the background color of the expansion button using the `Select
 let attributes: [String: Any] = [HighlightedTextSelectionAttributes.SelectedBackgroundColorAttribute : UIColor.purple]
 ```
 
-##Customization
+##Customization<a name="customization"></a>
 
 ####text
 * Sets the content of the text view
@@ -261,7 +269,7 @@ You can get the relative frames of words within the text view with the method be
 public func framesOfWordsMatchingValidator(validator: TextSelectionValidator) -> [CGRect]
 ```
 
-##Interface Builder
+##Interface Builder<a name="interface-builder"></a>
 
 You can set most customization properties via interface builder. `SelectableTextView` is marked as `@IBDesignable`.
 
@@ -304,7 +312,7 @@ public protocol SelectableTextViewDelegate: class {
 }
 ```
 
-##Scrolling
+##Scrolling<a name="scrolling"></a>
 
 `SelectableTextView` supports scrolling and forwards scroll events through `SelectableTextViewScrollDelegate`.
 
