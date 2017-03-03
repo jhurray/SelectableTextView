@@ -126,7 +126,12 @@ PhoneNumberValidator()
 ```
 
 ##Text Expansion
+
+<img align="right" src="./Resources/ExpansionDemo.gif">
+
 You can add a text expansion button with the following method:
+
+<br>
 
 ```swift
 public func addExpansionButton(collapsedState: (text: String, lines: Int), expandedState: (text: String, lines: Int), attributes: [String: Any]? = nil)
@@ -159,24 +164,119 @@ let attributes: [String: Any] = [HighlightedTextSelectionAttributes.SelectedBack
 
 ##Customization
 
-// JHTODO
+####text
+* Sets the content of the text view
+* Type: `String?`
+
+####font
+* Sets the font of the text view
+* Type: `UIFont`
+* Defaults to `UIFont.systemFont(ofSize: 17)`
+
+####textColor
+* Sets the default text color
+* Type: `UIColor`
+* Defaults to `UIColor.darkText`
+
+####attributedText
+* Overrides the `text` and `textColor` with the attributed text
+* Type: `NSAttributedString?`
+* Defaults to `nil`
+
+####textAlignment
+* Alignment of text in the text view
+* Type: `TextAlignment`
+* Supports 3 types: `.left`, `.right`, `.center`
+* Defaults to `.left`
+
+####lineBreakMode
+* Determines how the text view handles new lines
+* Type: `LineBreakMode`
+* Supports 1 type: `.wordWrap`
+* * Defaults to `. wordWrap `
+* See [Goals](#goals)
+
+####truncationMode
+* Determines the bahavior of the last word in the last line of the text view
+* Type: `TruncationMode`
+* Supports 2 types: `.clipping`, `.truncateTail`
+* Defaults to `.clipping`
+* See [Goals](#goals)
+
+####numberOfLines
+* Determines the number of lines in the text view
+* Type: `Int`
+* Defaults to `0`
+* 0 lines means unbounded, similar to `UILabel`
+
+####lineSpacing
+* Determines the spacing between lines
+* Type: `CGFloat`
+* Defaults to `0`
+* Supports negative values
+
+####textContainerInsets
+* Sets the content inset of the text view
+* Type: `UIEdgeInsets`
+* Defaults to `UIEdgeInsets.zero`
+
+####selectionAttributes
+* Sets the default selection attributes for selectable text
+* Type: `[String : AnyObject]?`
+* Defaults: `color` = `tintColor`, `font` = `boldSystemFont(ofSize: font.pointSize + 2)`
+
+####isExpanded
+* Tracks the state of the expansion button
+* Type: `Bool?`
+* Defaults to `nil`. Will only return a value if the expansion button is added
+* If the expansion button is added, this property will toggle the state
+
+####textContentSize
+* Readonly, returns the size of the text content
+* Type: `CGSize`
+
+####isSelectionEnabled
+* Determines if selection is enabled for the text view
+* Type: `Bool`
+* Defaults to `true`
+
+####isScrollEnabled
+* Determines if scrolling is enabled for the text view
+* Type: `Bool`
+* Defaults to `false`
+
+####scrollDelegate
+* Forwards scrolling events fron the text view
+* Type: `SelectableTextViewDelegate?`
+
+####delegate
+* Delegates work for the text view
+* Type: `SelectableTextViewScrollDelegate?`
+
+##Miscelaneous
+
+You can get the relative frames of words within the text view with the method below. This is how I set up the stars effect in the first example gif.
+
+```swift
+public func framesOfWordsMatchingValidator(validator: TextSelectionValidator) -> [CGRect]
+```
 
 ##Interface Builder
 
 You can set most customization properties via interface builder. `SelectableTextView` is marked as `@IBDesignable`.
 
-* numberOfLines
-* text
-* textColor
-* lineSpacing
-* isSelectionEnabled
-* isScrollEnabled
-* fontSize
-* truncateTail
-* topTextInsets
-* bottomTextInsets
-* leftTextInsets
-* rightTextInsets
+* `numberOfLines: Int`
+* `text: String`
+* `textColor: UIColor`
+* `lineSpacing: Float`
+* `isSelectionEnabled: Bool`
+* `isScrollEnabled: Bool`
+* `fontSize: Float`
+* `truncateTail: Bool`
+* `topTextInsets: Float`
+* `bottomTextInsets: Float`
+* `leftTextInsets: Float`
+* `rightTextInsets: Float`
 
 ##Delegate
 
@@ -233,7 +333,7 @@ public func scrollToWordPassingValidator(_ validator: TextSelectionValidator, po
 ```
 
 
-##Goals
+##Goals<a name="goals"></a>
 
 * Character wrapping
 * More truncation styles: `.head`, `.center`

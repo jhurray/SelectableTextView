@@ -126,7 +126,7 @@ class ViewController: UIViewController, SelectableTextViewDelegate {
             let attributes: [String: Any] = [HighlightedTextSelectionAttributes.SelectedBackgroundColorAttribute : UIColor.purple.withAlphaComponent(0.5)]
             let collapsedNumberOfLines = max(Int(numberOfLinesStepper.value), 1)
             textView.addExpansionButton(collapsedState: ("More...", collapsedNumberOfLines),
-                                        expandedState: ("Less", 0),
+                                        expandedState: ("Less", 3),
                                         attributes: attributes)
         }
         else {
