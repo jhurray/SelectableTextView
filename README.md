@@ -41,7 +41,7 @@ github "jhurray/SelectableTextView" ~> 0.0.1
 ```
 
 ####Add to project Manually
-Clone the repo and manually add the Files in [/SelectableTextView](./SelectableTextView)
+Clone the repo and manually add the Files in [/Source](./Source)
 
 ##Usage
 
