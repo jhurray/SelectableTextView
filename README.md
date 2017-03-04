@@ -9,12 +9,6 @@
 <td width=33%><p align="center"><img src="./Resources/SelectableTextViewDemo3.gif"></p></td>
 </tr></table>
 
-
-![language](https://img.shields.io/badge/Language-Swift-8E44AD.svg)
-![Version](https://img.shields.io/badge/Pod-%200.0.1%20-96281B.svg)
-![MIT License](https://img.shields.io/github/license/mashape/apistatus.svg)
-![Platform](https://img.shields.io/badge/platform-%20iOS%20-lightgrey.svg)
-
 ##The Problem
 `UILabel` and `UITextView` offer unsatisfying support for text selection.
 
@@ -47,7 +41,7 @@ github "jhurray/SelectableTextView" ~> 0.0.1
 ```
 
 ####Add to project Manually
-Clone the repo and manually add the Files in [/Source](./Source)
+Clone the repo and manually add the Files in [/SelectableTextView](./SelectableTextView)
 
 ##Usage
 
@@ -79,7 +73,7 @@ textView.removeValidator(validator: hashtagValidator)
 
 ###Custom Validators
 
-[Here](JHTODO) is a resource for creating custom validators using the `TextSelectionValidator` protocol. 
+Here is a resource for [creating custom validators](https://github.com/jhurray/SelectableTextView/wiki/Custom-Validators) using the `TextSelectionValidator` protocol. 
 
 There are other more specific protocols that make customization easier like `ContainerTextSelectionValidator` and `CompositeTextSelectionValidator`.
 
@@ -128,7 +122,7 @@ HTTPSLinkValidator()
 CustomLinkValidator(urlString: String!, replacementText: String? = nil) 
 ```
 
-Customization is possible using the `LinkValidatorAttributes` protocol. Example [here](JHTODO).
+Customization is possible using the `LinkValidatorAttributes` protocol. Example [here](https://github.com/jhurray/SelectableTextView/wiki/Link-Validators).
 
 #####Regex Validators
 ```swift
@@ -267,12 +261,32 @@ let attributes: [String: Any] = [HighlightedTextSelectionAttributes.SelectedBack
 * Delegates work for the text view
 * Type: `SelectableTextViewScrollDelegate?`
 
+##Supported Escape Characters
+* New Line `\n`
+* Tab `\t`
+* Null Terminator `\0`
+
+If you want to have text next to to a selectabe portion of text but still validate the text correctly, use the null terminator.
+
+```swift
+let text = "The period next to the #Hashtag\0. Will not be highlighted if I use a hashtag validator."
+```
+
 ##Miscelaneous
 
+#####framesOfWordsMatchingValidator
 You can get the relative frames of words within the text view with the method below. This is how I set up the stars effect in the first example gif.
 
 ```swift
 public func framesOfWordsMatchingValidator(validator: TextSelectionValidator) -> [CGRect]
+```
+
+#####Tab Length
+
+You can adjust the number of spaces a tab character creates using `TabTextModelConfig.numberOfSpaces`. The default value is 4.
+
+```swift
+TabTextModelConfig.numberOfSpaces = 2
 ```
 
 ##Interface Builder<a name="interface-builder"></a>

@@ -48,7 +48,7 @@ public protocol ContainerTextSelectionValidator: TextSelectionValidator {
 public extension ContainerTextSelectionValidator {
     
     public var identifier: String {
-        return validator.identifier
+        return "\(typeString)." + validator.identifier
     }
     
     public func validate(text: String) -> Bool {

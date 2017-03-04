@@ -17,6 +17,9 @@
 		262225B01E5A51C7004E1B5C /* InterfaceBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262225AF1E5A51C7004E1B5C /* InterfaceBuilder.swift */; };
 		262225B21E5B9332004E1B5C /* UIClassValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262225B11E5B9332004E1B5C /* UIClassValidator.swift */; };
 		262225CC1E625367004E1B5C /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 262225CA1E625363004E1B5C /* star.png */; };
+		262225CE1E6B8125004E1B5C /* TextValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262225CD1E6B8125004E1B5C /* TextValidatorTests.swift */; };
+		262225D01E6B8184004E1B5C /* LinkValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262225CF1E6B8184004E1B5C /* LinkValidatorTests.swift */; };
+		262225D21E6B83A6004E1B5C /* RegexValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262225D11E6B83A6004E1B5C /* RegexValidatorTests.swift */; };
 		26577DA31E46BDD1008DB9AB /* SelectableTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26577D991E46BDD1008DB9AB /* SelectableTextView.framework */; };
 		26577DA81E46BDD1008DB9AB /* SelectableTextViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26577DA71E46BDD1008DB9AB /* SelectableTextViewTests.swift */; };
 		26577DAA1E46BDD1008DB9AB /* SelectableTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 26577D9C1E46BDD1008DB9AB /* SelectableTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -58,6 +61,9 @@
 		262225AF1E5A51C7004E1B5C /* InterfaceBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceBuilder.swift; sourceTree = "<group>"; };
 		262225B11E5B9332004E1B5C /* UIClassValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIClassValidator.swift; sourceTree = "<group>"; };
 		262225CA1E625363004E1B5C /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		262225CD1E6B8125004E1B5C /* TextValidatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextValidatorTests.swift; sourceTree = "<group>"; };
+		262225CF1E6B8184004E1B5C /* LinkValidatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkValidatorTests.swift; sourceTree = "<group>"; };
+		262225D11E6B83A6004E1B5C /* RegexValidatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexValidatorTests.swift; sourceTree = "<group>"; };
 		26577D991E46BDD1008DB9AB /* SelectableTextView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SelectableTextView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26577D9C1E46BDD1008DB9AB /* SelectableTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectableTextView.h; sourceTree = "<group>"; };
 		26577D9D1E46BDD1008DB9AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -147,6 +153,9 @@
 			children = (
 				26577DA91E46BDD1008DB9AB /* Info.plist */,
 				26577DA71E46BDD1008DB9AB /* SelectableTextViewTests.swift */,
+				262225CD1E6B8125004E1B5C /* TextValidatorTests.swift */,
+				262225CF1E6B8184004E1B5C /* LinkValidatorTests.swift */,
+				262225D11E6B83A6004E1B5C /* RegexValidatorTests.swift */,
 			);
 			path = SelectableTextViewTests;
 			sourceTree = "<group>";
@@ -376,7 +385,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				262225D21E6B83A6004E1B5C /* RegexValidatorTests.swift in Sources */,
 				26577DA81E46BDD1008DB9AB /* SelectableTextViewTests.swift in Sources */,
+				262225D01E6B8184004E1B5C /* LinkValidatorTests.swift in Sources */,
+				262225CE1E6B8125004E1B5C /* TextValidatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -52,12 +52,12 @@ public struct EmailValidator: ContainerTextSelectionValidator {
     
     public init() {}
     
-    private(set) public var validator: TextSelectionValidator = RegexValidator(pattern: "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+    private(set) public var validator: TextSelectionValidator = RegexValidator(pattern: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
 }
 
 public struct PhoneNumberValidator: ContainerTextSelectionValidator {
     
     public init() {}
     
-    private(set) public var validator: TextSelectionValidator = RegexValidator(pattern: "(?:(\\+\\d\\d\\s+)?((?:\\(\\d\\d\\)|\\d\\d)\\s+)?)(\\d{4,5}\\-?\\d{4})")
+    private(set) public var validator: TextSelectionValidator = RegexValidator(pattern: "^([0-9]( |-)?)?(\\(?[0-9]{3}\\)?|[0-9]{3})( |-)?([0-9]{3}( |-)?[0-9]{4}|[a-zA-Z0-9]{7})$")
 }

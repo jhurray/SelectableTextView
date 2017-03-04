@@ -134,7 +134,7 @@ public struct HandlebarsValidator: CompositeTextSelectionValidator {
         self.validators =  [
                             PrefixValidator(prefix: "{{"),
                             SuffixValidator(suffix: "}}"),
-                            ContainsTextValidator(text: searchableText, caseSensitive: true),
+                            MatchesTextValidator(text: "{{" + searchableText + "}}", caseSensitive: true),
                             ]
     }
 }
