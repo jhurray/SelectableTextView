@@ -293,6 +293,8 @@ TabTextModelConfig.numberOfSpaces = 2
 
 You can set most customization properties via interface builder. `SelectableTextView` is marked as `@IBDesignable`.
 
+<img align="right" src="./Resources/IBFeature.png"></img>
+
 * `numberOfLines: Int`
 * `text: String`
 * `textColor: UIColor`

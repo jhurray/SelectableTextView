@@ -26,7 +26,6 @@ class ViewController: UIViewController, SelectableTextViewDelegate {
         super.viewDidLoad()
         
         textView.delegate = self
-        textView.truncationMode = .truncateTail
         
         let githubLink = "https://github.com/jhurray/SelectableTextView"
         textView.text = "Hello, I'm {{my_name}}\0. I made \(githubLink) to solve the problem of highlighting and selecting specific text in UILabel and UITextView. An example is a hashtag like #Stars or an unsafe link like http://google.com\0!"

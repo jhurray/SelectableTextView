@@ -31,9 +31,8 @@
                                         <integer key="value" value="0"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                        <color key="value" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="text" value=" Hello World!"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="lineSpacing">
                                         <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
@@ -44,11 +43,18 @@
                                         <real key="value" value="16"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="leftTextInsets">
-                                        <integer key="value" value="16"/>
+                                        <real key="value" value="16"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="rightTextInsets">
                                         <real key="value" value="16"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                        <real key="value" value="17"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="trucateTail" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSelectionEnabled" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isScrollEnabled" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="text" value="SelectableTextView offers great Interface Builder support!"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="fmz-1S-rfv">
