@@ -212,12 +212,12 @@ public final class SelectableTextView : UIView, TextViewLayoutDataSource, UIColl
     
     
     // MARK: Initializers
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
     
-    convenience init() {
+    public convenience init() {
         self.init(frame: .zero)
     }
     
