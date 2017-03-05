@@ -38,7 +38,7 @@ internal extension String {
     
     func truncate(leadingCharacters: Int) -> String {
         let range = Range(uncheckedBounds: (startIndex, index(startIndex, offsetBy: leadingCharacters)))
-        var start: String = substring(with: range)
+        let start: String = substring(with: range)
         let truncation: String = "..."
         return start.appending(truncation)
     }

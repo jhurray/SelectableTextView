@@ -177,7 +177,7 @@ internal final class TextViewLayout: UICollectionViewLayout {
                 lineWidth = 0
                 
                 // Put expansion button on new line
-                let (numberOfCellsHiddenByExpansion, expansionButtonKey) = adjustForExpansionButton(lineHeight: lineHeight, onNewLine: true)
+                let (_, expansionButtonKey) = adjustForExpansionButton(lineHeight: lineHeight, onNewLine: true)
                 // Move Expansion Button
                 if let key = expansionButtonKey {
                     attributeKeysForCurrentLine.append(key)
@@ -260,12 +260,11 @@ internal final class TextViewLayout: UICollectionViewLayout {
         guard let dataSource = dataSource else {
             return (0, nil)
         }
-        guard let expansionModel = dataSource.expansionButtonModel(layout: self) else {
+        guard (dataSource.expansionButtonModel(layout: self)) != nil else {
             return (0, nil)
         }
         
         let numberOfModels = dataSource.numberOfTextModelsForLayout(layout: self)
-        let numberOfLines = dataSource.numberOfLinesForLayout(layout: self)
         let expansionButtonWidth: CGFloat = widthForExpansionButtonCell()
         
         let indexPath = IndexPath(item: numberOfModels, section: 0)
@@ -286,7 +285,7 @@ internal final class TextViewLayout: UICollectionViewLayout {
             guard index != numberOfModels else {
                 continue
             }
-            let (_, model, key) = layoutInformationAtIndex(index: index)
+            let (_, _, key) = layoutInformationAtIndex(index: index)
             let expansionButtonFrame = expansionButtonAttributes.frame
             if expansionButtonFrame.contains(attributes.frame) {
                 hideCellForKey(key: key)
@@ -321,11 +320,10 @@ internal final class TextViewLayout: UICollectionViewLayout {
             return nil
         }
         
-        var numberOfModels = dataSource.numberOfTextModelsForLayout(layout: self)
+        let numberOfModels = dataSource.numberOfTextModelsForLayout(layout: self)
         var numberOfCells = cellAttributes.count - numberOfCellsHiddenByExpansion
-        var expansionButtonCellWidth: CGFloat = 0
         
-        if let expansionButtonModel = dataSource.expansionButtonModel(layout: self) {
+        if (dataSource.expansionButtonModel(layout: self)) != nil {
             numberOfCells -= 1
         }
         let expansionButtonWidth = expansionOnNewLine ? 0 : widthForExpansionButtonCell()
@@ -388,7 +386,6 @@ internal final class TextViewLayout: UICollectionViewLayout {
     
     fileprivate func hideCellForKey(key: AttributeKey) {
         adjustLayoutAttributesForKey(key: key, adjustment: { (attributes) -> (UICollectionViewLayoutAttributes) in
-            var attributes = attributes
             attributes.isHidden = true
             return attributes
         })
@@ -396,7 +393,6 @@ internal final class TextViewLayout: UICollectionViewLayout {
     
     fileprivate func adjustLayoutAttributesFrameForKey(key: AttributeKey, frameAdjustment: (CGRect) -> (CGRect)) {
         adjustLayoutAttributesForKey(key: key) { (attributes) -> (UICollectionViewLayoutAttributes) in
-            var attributes = attributes
             let frame = frameAdjustment(attributes.frame)
             attributes.frame = frame
             return attributes
@@ -404,7 +400,7 @@ internal final class TextViewLayout: UICollectionViewLayout {
     }
     
     fileprivate func adjustLayoutAttributesForKey(key: AttributeKey, adjustment: (UICollectionViewLayoutAttributes) -> (UICollectionViewLayoutAttributes)) {
-        guard var attributes = cellAttributes[key] else {
+        guard let attributes = cellAttributes[key] else {
             return
         }
         

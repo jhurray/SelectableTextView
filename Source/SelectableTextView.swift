@@ -303,13 +303,7 @@ public final class SelectableTextView : UIView, TextViewLayoutDataSource, UIColl
         guard validatorHasNotBeenRegistered else {
             return
         }
-        
-        let actionIsValid: Bool = textSelectionAction != nil
-        assert(actionIsValid, "Validator of type \(validator.typeString) with identifier \(validator.identifier) registered with nil 'textSelectionAction'")
-        guard actionIsValid else {
-            return
-        }
-        
+
         validatorIdentifierToActionMapping[validator.identifier] = textSelectionAction
         validators.append(validator)
         reloadData()
@@ -336,7 +330,6 @@ public final class SelectableTextView : UIView, TextViewLayoutDataSource, UIColl
     
     // MARK: Helpers
     fileprivate func reloadData() {
-        let oldHeight = textContentSize.height
         accessibilityLabel = text
         buildTextModels()
         collectionView.reloadData()
@@ -362,7 +355,7 @@ public final class SelectableTextView : UIView, TextViewLayoutDataSource, UIColl
     
     fileprivate func buildTextModels() {
         let factory = TextCellModelFactory()
-        var models = factory.buildTextModels(attributedText: _attributedText)
+        let models = factory.buildTextModels(attributedText: _attributedText)
         var textModels: [TextCellModel] = []
         for model in models {
             if var word = model as? Word {
@@ -399,7 +392,6 @@ public final class SelectableTextView : UIView, TextViewLayoutDataSource, UIColl
                 validValidators.append(validator)
             }
         }
-        var fulfillableValidator: TextSelectionValidator?
         switch validValidators.count {
         case 0:
             return nil
@@ -407,7 +399,7 @@ public final class SelectableTextView : UIView, TextViewLayoutDataSource, UIColl
             return validValidators.first
         default:
             if let delegate = delegate {
-                return delegate.resolveValidationConflictsForSelectableTextView(textView: self, conflictingValidators: validValidators as! [TextSelectionValidator])
+                return delegate.resolveValidationConflictsForSelectableTextView(textView: self, conflictingValidators: validValidators)
             }
             else {
                 return validValidators.first
@@ -527,10 +519,10 @@ internal extension SelectableTextView {
 }
 
 // MARK: KVO
-let ContentSizeKeyPath = "contentSize"
-fileprivate extension SelectableTextView {
+fileprivate let ContentSizeKeyPath = "contentSize"
+public extension SelectableTextView {
     
-    func setupContentSizeObservation() {
+    fileprivate func setupContentSizeObservation() {
         collectionView.addObserver(self, forKeyPath: ContentSizeKeyPath, options: NSKeyValueObservingOptions.old.union(.new), context: &ContentSizeObservationContext)
     }
     
