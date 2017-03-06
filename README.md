@@ -49,9 +49,21 @@ Clone the repo and manually add the Files in [/SelectableTextView](./SelectableT
 import SelectableTextView
 
 let textView = SelectableTextView()
+textView.text = "Hello World!"
 textView.truncationMode = .truncateTail
-textView.numberOfLines = 3
-...
+textView.alignment = .center
+textView.numberOfLines = 1
+
+let greetingValidator = MatchesTextValidator(text: "hello")
+textView.registerValidator(validator: greetingValidator) { (validText, validator) in
+	// Handle selection of "Hello"
+}
+
+let exclamationValidator = SuffixValidator(suffix: "!")
+textView.registerValidator(validator: exclamationValidator) { (validText, validator) in
+	// Handle selection of "World!"
+}
+
 ```
 
 ##Text Selection<a name="text-selection"></a>
