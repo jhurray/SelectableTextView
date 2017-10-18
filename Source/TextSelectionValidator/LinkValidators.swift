@@ -60,7 +60,7 @@ public struct UnsafeLinkValidator: ContainerTextSelectionValidator, LinkValidato
     
     private(set) public var validator: TextSelectionValidator =  PrefixValidator(prefix: "http://")
     
-    private(set) public var selectionAttributes: [String : Any]? = [NSAttributedStringKey.foregroundColor: UIColor.red]
+    private(set) public var selectionAttributes: [NSAttributedStringKey: Any]? = [NSAttributedStringKey.foregroundColor: UIColor.red]
 }
 
 
