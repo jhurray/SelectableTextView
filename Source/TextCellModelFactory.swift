@@ -72,7 +72,7 @@ final internal class TextCellModelFactory {
                 break
             case .word:
                 let substringRange = Range<_Index>(uncheckedBounds: (text.index(text.startIndex, offsetBy: currentTextChunkStart), text.index(text.startIndex, offsetBy: characterCount)))
-                let substring = text.substring(with: substringRange)
+                let substring = String(text[substringRange])
                 let word = Word(range: range, text: substring, attributes: attributes, displayText: nil, highlightable: false)
                 textModels.append(word)
                 break

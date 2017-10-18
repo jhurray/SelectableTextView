@@ -12,7 +12,7 @@ import Foundation
 public protocol TextSelectionValidator: TextSelectionAppearance {
     
     var identifier: String {get}
-    var selectionAttributes: [String: Any]? {get}
+    var selectionAttributes: [NSAttributedStringKey: Any]? {get}
     var replacementText: String? {get}
     
     func validate(text: String) -> Bool
@@ -20,7 +20,7 @@ public protocol TextSelectionValidator: TextSelectionAppearance {
 
 public extension TextSelectionValidator {
     
-    public var selectionAttributes: [String: Any]? {
+    public var selectionAttributes: [NSAttributedStringKey: Any]? {
         return nil
     }
     

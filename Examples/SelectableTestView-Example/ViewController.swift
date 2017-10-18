@@ -122,7 +122,7 @@ class ViewController: UIViewController, SelectableTextViewDelegate {
     
     @IBAction func addExpansionButtonToggled(_ sender: UISwitch) {
         if sender.isOn {
-            let attributes: [String: Any] = [HighlightedTextSelectionAttributes.SelectedBackgroundColorAttribute : UIColor.purple.withAlphaComponent(0.5)]
+            let attributes: [NSAttributedStringKey: Any] = [HighlightedTextSelectionAttributes.SelectedBackgroundColorAttribute : UIColor.purple.withAlphaComponent(0.5)]
             let collapsedNumberOfLines = max(Int(numberOfLinesStepper.value), 1)
             textView.addExpansionButton(collapsedState: ("More...", collapsedNumberOfLines),
                                         expandedState: ("Less", 0),

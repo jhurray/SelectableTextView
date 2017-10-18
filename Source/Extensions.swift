@@ -38,17 +38,17 @@ internal extension String {
     
     func truncate(leadingCharacters: Int) -> String {
         let range = Range(uncheckedBounds: (startIndex, index(startIndex, offsetBy: leadingCharacters)))
-        let start: String = substring(with: range)
+        let start: String = String(self[range])
         let truncation: String = "..."
         return start.appending(truncation)
     }
     
-    func width(withAttributes attributes: [String: Any]?) -> CGFloat {
+    func width(withAttributes attributes: [NSAttributedStringKey: Any]?) -> CGFloat {
         let attributedString = NSAttributedString(string: self, attributes: attributes)
         return attributedString.size().width
     }
     
-    func truncatedString(fittingWidth width: CGFloat, attributes: [String: Any]?) -> String? {
+    func truncatedString(fittingWidth width: CGFloat, attributes: [NSAttributedStringKey: Any]?) -> String? {
         
         func passesTest(leadingCharacters: Int) -> Bool {
             let truncatedString = truncate(leadingCharacters: leadingCharacters)

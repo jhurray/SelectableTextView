@@ -133,7 +133,7 @@ public final class SelectableTextView : UIView {
             setNeedsLayout()
         }
     }
-    public var selectionAttributes: [String:AnyObject]? {
+    public var selectionAttributes: [NSAttributedStringKey: AnyObject]? {
         didSet {
             reloadData()
         }
@@ -172,28 +172,28 @@ public final class SelectableTextView : UIView {
     fileprivate var validators: [TextSelectionValidator] = []
     fileprivate var expansionButtonModel: TextExpansionButtonModel? = nil
     fileprivate var ContentSizeObservationContext: UnsafeMutableRawPointer? = nil
-    fileprivate var defaultAttributes: [String: Any] {
+    fileprivate var defaultAttributes: [NSAttributedStringKey: Any] {
         let attributes = [
-            NSForegroundColorAttributeName:textColor,
-            NSFontAttributeName:font
-            ] as [String : Any]
+            NSAttributedStringKey.foregroundColor.rawValue:textColor,
+            NSAttributedStringKey.font:font
+            ] as! [NSAttributedStringKey : Any]
         return attributes
     }
-    fileprivate var _selectionAttributes: [String: Any] {
+    fileprivate var _selectionAttributes: [NSAttributedStringKey: Any] {
         let defaultSelectionAttributes = [
-            NSForegroundColorAttributeName: tintColor,
-            NSFontAttributeName: UIFont.boldSystemFont(ofSize: font.pointSize + 2)
-            ] as [String : Any]
+            NSAttributedStringKey.foregroundColor.rawValue: tintColor,
+            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: font.pointSize + 2)
+            ] as! [NSAttributedStringKey : Any]
         return selectionAttributes += defaultSelectionAttributes
     }
-    fileprivate var defaultExpansionAttributes: [String: Any] {
+    fileprivate var defaultExpansionAttributes: [NSAttributedStringKey: Any] {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         let defaultSelectionAttributes = [
-            NSForegroundColorAttributeName: tintColor,
-            NSFontAttributeName: UIFont.boldSystemFont(ofSize: font.pointSize - 2),
-            NSParagraphStyleAttributeName: paragraphStyle
-            ] as [String : Any]
+            NSAttributedStringKey.foregroundColor.rawValue: tintColor,
+            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: font.pointSize - 2),
+            NSAttributedStringKey.paragraphStyle: paragraphStyle
+            ] as! [NSAttributedStringKey : Any]
         return selectionAttributes += defaultSelectionAttributes
     }
     fileprivate struct LayoutHelper {
@@ -258,7 +258,7 @@ public final class SelectableTextView : UIView {
     }
     
     // MARK: Public
-    public func addExpansionButton(collapsedState: (text: String, lines: Int), expandedState: (text: String, lines: Int), attributes: [String: Any]? = nil) {
+    public func addExpansionButton(collapsedState: (text: String, lines: Int), expandedState: (text: String, lines: Int), attributes: [NSAttributedStringKey: Any]? = nil) {
         assert(collapsedState.lines != 0)
         assert(expandedState.lines == 0 || collapsedState.lines < expandedState.lines)
         let textAttributes = attributes += defaultExpansionAttributes
