@@ -15,6 +15,6 @@ public struct UIClassValidator: ContainerTextSelectionValidator {
     public let validator: TextSelectionValidator = PrefixValidator(prefix: "UI", caseSensitive: true)
     
     public var selectionAttributes: [String : Any]? = [
-        NSAttributedStringKey.foregroundColor.rawValue: UIColor.orange
+        NSAttributedStringKey.foregroundColor: UIColor.orange
     ]
 }

@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name             = 'SelectableTextView'
-  spec.version          = '1.0.0'
+  spec.version          = '1.0.1'
   spec.license          = { :type => 'MIT' }
   spec.homepage         = 'https://github.com/jhurray/SelectableTextView'
   spec.authors          = { 'Jeff Hurray' => 'jhurray33@gmail.com' }

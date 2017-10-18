@@ -29,7 +29,7 @@ Existing solutions like [TTTAttributedLabel](https://github.com/TTTAttributedLab
 Add the following to your `Podfile`
 
 ```ruby
-pod 'SelectableTextView', '~> 1.0.0'
+pod 'SelectableTextView', '~> 1.0.1'
 ```
 
 #### Carthage
@@ -37,7 +37,7 @@ pod 'SelectableTextView', '~> 1.0.0'
 Add the following to your `Cartfile`
 
 ```ruby
-github "jhurray/SelectableTextView" ~> 1.0.0
+github "jhurray/SelectableTextView" ~> 1.0.1
 ```
 
 #### Add to project Manually

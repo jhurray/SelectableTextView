@@ -173,27 +173,27 @@ public final class SelectableTextView : UIView {
     fileprivate var expansionButtonModel: TextExpansionButtonModel? = nil
     fileprivate var ContentSizeObservationContext: UnsafeMutableRawPointer? = nil
     fileprivate var defaultAttributes: [NSAttributedStringKey: Any] {
-        let attributes = [
-            NSAttributedStringKey.foregroundColor.rawValue:textColor,
-            NSAttributedStringKey.font:font
-            ] as! [NSAttributedStringKey : Any]
+        let attributes: [NSAttributedStringKey: Any] = [
+            NSAttributedStringKey.foregroundColor: textColor,
+            NSAttributedStringKey.font: font
+            ]
         return attributes
     }
     fileprivate var _selectionAttributes: [NSAttributedStringKey: Any] {
-        let defaultSelectionAttributes = [
-            NSAttributedStringKey.foregroundColor.rawValue: tintColor,
+        let defaultSelectionAttributes: [NSAttributedStringKey: Any] = [
+            NSAttributedStringKey.foregroundColor: tintColor,
             NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: font.pointSize + 2)
-            ] as! [NSAttributedStringKey : Any]
+            ]
         return selectionAttributes += defaultSelectionAttributes
     }
     fileprivate var defaultExpansionAttributes: [NSAttributedStringKey: Any] {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
-        let defaultSelectionAttributes = [
-            NSAttributedStringKey.foregroundColor.rawValue: tintColor,
+        let defaultSelectionAttributes: [NSAttributedStringKey: Any] = [
+            NSAttributedStringKey.foregroundColor: tintColor,
             NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: font.pointSize - 2),
             NSAttributedStringKey.paragraphStyle: paragraphStyle
-            ] as! [NSAttributedStringKey : Any]
+            ]
         return selectionAttributes += defaultSelectionAttributes
     }
     fileprivate struct LayoutHelper {
