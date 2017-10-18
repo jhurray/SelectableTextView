@@ -9,12 +9,12 @@
 import UIKit
 
 internal protocol TextViewLayoutDataSource: class {
-    func lineSpacingForLayout(layout: TextViewLayout) -> CGFloat
-    func numberOfLinesForLayout(layout: TextViewLayout) -> Int
-    func numberOfTextModelsForLayout(layout: TextViewLayout) -> Int
-    func truncationModeForLayout(layout: TextViewLayout) -> TruncationMode
-    func textAlignmentForLayout(layout: TextViewLayout) -> TextAlignment
-    func cellModelAtIndex(index:Int, layout: TextViewLayout) -> TextCellModel
+    func lineSpacing(forLayout layout: TextViewLayout) -> CGFloat
+    func numberOfLines(forLayout layout: TextViewLayout) -> Int
+    func numberOfTextModels(forLayout layout: TextViewLayout) -> Int
+    func truncationMode(forLayout layout: TextViewLayout) -> TruncationMode
+    func textAlignment(forLayout layout: TextViewLayout) -> TextAlignment
+    func cellModel(atIndex index:Int, layout: TextViewLayout) -> TextCellModel
     func expansionButtonModel(layout: TextViewLayout) -> TextExpansionButtonModel?
 }
 
@@ -59,9 +59,9 @@ internal final class TextViewLayout: UICollectionViewLayout {
         }
         if cellAttributes.isEmpty {
             contentWidth = collectionView!.bounds.width - collectionView!.contentInset.left - collectionView!.contentInset.right
-            let numberOfLines = dataSource.numberOfLinesForLayout(layout: self)
-            let numberOfModels = dataSource.numberOfTextModelsForLayout(layout: self)
-            let lineSpacing = dataSource.lineSpacingForLayout(layout: self)
+            let numberOfLines = dataSource.numberOfLines(forLayout: self)
+            let numberOfModels = dataSource.numberOfTextModels(forLayout: self)
+            let lineSpacing = dataSource.lineSpacing(forLayout: self)
             var line: Int = 0
             var item: Int = 0
             var lineWidth: CGFloat = 0
@@ -74,7 +74,7 @@ internal final class TextViewLayout: UICollectionViewLayout {
             var attributeKeysForCurrentLine: [AttributeKey] = []
             func alignCurrentLine() {
                 var shiftValue = floor(contentWidth - lineWidth)
-                switch dataSource.textAlignmentForLayout(layout: self) {
+                switch dataSource.textAlignment(forLayout: self) {
                 case .center:
                     shiftValue /= 2
                     break
@@ -119,7 +119,7 @@ internal final class TextViewLayout: UICollectionViewLayout {
                     }
                     else {
                         // Truncation
-                        let truncationMode = dataSource.truncationModeForLayout(layout: self)
+                        let truncationMode = dataSource.truncationMode(forLayout: self)
                         switch truncationMode {
                         case .clipping:
                             width = additionalWidth
@@ -133,7 +133,7 @@ internal final class TextViewLayout: UICollectionViewLayout {
                     }
                 }
                 
-                let model = dataSource.cellModelAtIndex(index: item, layout: self)
+                let model = dataSource.cellModel(atIndex: item, layout: self)
                 switch model.type {
                 case .newLine:
                     newLine(additionalWidth: 0)
@@ -222,12 +222,12 @@ internal final class TextViewLayout: UICollectionViewLayout {
             return false
         }
         
-        let numberOfLines = dataSource.numberOfLinesForLayout(layout: self)
+        let numberOfLines = dataSource.numberOfLines(forLayout: self)
         guard numberOfLines == 0 else {
             return false
         }
         
-        let numberOfModels = dataSource.numberOfTextModelsForLayout(layout: self)
+        let numberOfModels = dataSource.numberOfTextModels(forLayout: self)
         let (lastAttributes, _, _) = layoutInformationAtIndex(index: numberOfModels - 1)
         let remainingWidth = contentWidth - lastAttributes.frame.maxX
         let expansionButtonWidth = widthForExpansionButtonCell()
@@ -251,7 +251,7 @@ internal final class TextViewLayout: UICollectionViewLayout {
         guard let dataSource = dataSource else {
             fatalError("DataSource should not be nil")
         }
-        let model = dataSource.cellModelAtIndex(index: index, layout: self)
+        let model = dataSource.cellModel(atIndex: index, layout: self)
         return (attributes, model, key)
     }
     
@@ -264,7 +264,7 @@ internal final class TextViewLayout: UICollectionViewLayout {
             return (0, nil)
         }
         
-        let numberOfModels = dataSource.numberOfTextModelsForLayout(layout: self)
+        let numberOfModels = dataSource.numberOfTextModels(forLayout: self)
         let expansionButtonWidth: CGFloat = widthForExpansionButtonCell()
         
         let indexPath = IndexPath(item: numberOfModels, section: 0)
@@ -311,16 +311,16 @@ internal final class TextViewLayout: UICollectionViewLayout {
         guard let dataSource = dataSource else {
             return nil
         }
-        let truncationMode = dataSource.truncationModeForLayout(layout: self)
+        let truncationMode = dataSource.truncationMode(forLayout: self)
         guard truncationMode != .clipping else {
             return nil
         }
-        let numberOfLines = dataSource.numberOfLinesForLayout(layout: self)
+        let numberOfLines = dataSource.numberOfLines(forLayout: self)
         guard numberOfLines > 0 else {
             return nil
         }
         
-        let numberOfModels = dataSource.numberOfTextModelsForLayout(layout: self)
+        let numberOfModels = dataSource.numberOfTextModels(forLayout: self)
         var numberOfCells = cellAttributes.count - numberOfCellsHiddenByExpansion
         
         if (dataSource.expansionButtonModel(layout: self)) != nil {
@@ -337,7 +337,7 @@ internal final class TextViewLayout: UICollectionViewLayout {
         let remainingWidth = contentWidth - lastCellAttributes.frame.minX - expansionButtonWidth
         let lastCellModelIsWordThatDoesntFit = (lastCellModel is Word)
                                             && (lastCellModel.attributedText.width > lastCellAttributes.frame.width)
-                                            && (lastCellModel.text.truncatedStringFittingWidth(width: remainingWidth, attributes: lastCellModel.attributes) == nil)
+                                            && (lastCellModel.text.truncatedString(fittingWidth: remainingWidth, attributes: lastCellModel.attributes) == nil)
         let needsTruncation: Bool = numberOfCells < numberOfModels || lastCellModelIsWordThatDoesntFit
         guard needsTruncation else {
             return nil
@@ -362,11 +362,11 @@ internal final class TextViewLayout: UICollectionViewLayout {
             if let word = model as? Word, !attributes.isHidden {
                 let availableWidthForTruncatedText: CGFloat = floor(contentWidth - attributes.frame.minX - expansionButtonWidth)
                 let text = word.displayText ?? word.text
-                guard let truncatedString = text.truncatedStringFittingWidth(width: availableWidthForTruncatedText, attributes: word.attributes) else {
+                guard let truncatedString = text.truncatedString(fittingWidth: availableWidthForTruncatedText, attributes: word.attributes) else {
                     // JHTODO assert? should ever happen?
                     return nil
                 }
-                let truncatedStringWidth = truncatedString.widthWithAttributes(attributes: word.attributes)
+                let truncatedStringWidth = truncatedString.width(withAttributes: word.attributes)
                 let newMaxX = attributes.frame.minX + truncatedStringWidth
                 adjustLayoutAttributesFrameForKey(key: key, frameAdjustment: { (frame) -> (CGRect) in
                     var frame = frame
@@ -412,10 +412,10 @@ internal final class TextViewLayout: UICollectionViewLayout {
             return 0
         }
         var maxHeight: CGFloat = 0
-        let numberOfModels = dataSource.numberOfTextModelsForLayout(layout: self)
+        let numberOfModels = dataSource.numberOfTextModels(forLayout: self)
         var item = 0
         while item < numberOfModels {
-            let model = dataSource.cellModelAtIndex(index: item, layout: self)
+            let model = dataSource.cellModel(atIndex: item, layout: self)
             let attributedString = model.attributedText
             maxHeight = max(maxHeight, attributedString.size().height)
             item += 1

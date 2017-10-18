@@ -18,7 +18,7 @@ class ViewController: UIViewController, SelectableTextViewDelegate {
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
 
     var hashtagFrame: CGRect? {
-        let frames = textView.framesOfWordsMatchingValidator(validator: HashtagTextValidator())
+        let frames = textView.framesOfWordsMatchingValidator(HashtagTextValidator())
         return frames.first
     }
     
@@ -31,25 +31,25 @@ class ViewController: UIViewController, SelectableTextViewDelegate {
         textView.text = "Hello, I'm {{my_name}}\0. I made \(githubLink) to solve the problem of highlighting and selecting specific text in UILabel and UITextView. An example is a hashtag like #Stars or an unsafe link like http://google.com\0!"
         
         let unsafeLinkValidator = UnsafeLinkValidator()
-        textView.registerValidator(validator: unsafeLinkValidator) { (text, validator) in
+        textView.registerValidator(unsafeLinkValidator) { (text, validator) in
             self.showAlert(title: "🚫", message: "This link is bad mm'kay!")
         }
         
-        textView.registerValidator(validator: UIClassValidator())
+        textView.registerValidator(UIClassValidator())
         
         let githubLinkValidator = CustomLinkValidator(urlString: githubLink, replacementText: "SelectableTextView")
-        textView.registerValidator(validator: githubLinkValidator) { (text, validator) in
+        textView.registerValidator(githubLinkValidator) { (text, validator) in
             if let linkValidator = validator as? CustomLinkValidator {
                 self.openWebView(url: linkValidator.url)
             }
         }
         
         let myNameValidator = HandlebarsValidator(searchableText: "my_name", replacementText: "Jeff Hurray")
-        textView.registerValidator(validator: myNameValidator) { (text, validator) in
+        textView.registerValidator(myNameValidator) { (text, validator) in
             self.openWebView(url: URL(string: "https://twitter.com/jeffhurray")!)
         }
         
-        textView.registerValidator(validator: HashtagTextValidator()) { (text, validator) in
+        textView.registerValidator(HashtagTextValidator()) { (text, validator) in
             self.createParticles(seconds: 1)
         }
     }

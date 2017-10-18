@@ -30,30 +30,30 @@ public extension SelectableTextView {
     
     /// Scrolls to the first instance of the word
     /// Attempts to match the text and display text of a word
-    public func scrollToWord(_ word: String, position: ScrollPosition, animated: Bool) {
+    public func scroll(toWord word: String, position: ScrollPosition, animated: Bool) {
         for (index, model) in textModels.enumerated() {
             if let _word = model as? Word {
                 if _word.text == word || _word.displayText == word {
                     let indexPath = IndexPath(item: index, section: 0)
-                    scrollToIndexPath(indexPath, position: position, animated: animated)
+                    scroll(toIndexPath: indexPath, position: position, animated: animated)
                 }
             }
         }
     }
     
     /// Scrolls to the first instance of a word that passes the provided TextSelectionValidator
-    public func scrollToWordPassingValidator(_ validator: TextSelectionValidator, position: ScrollPosition, animated: Bool) {
+    public func scroll(toWordPassingValidator validator: TextSelectionValidator, position: ScrollPosition, animated: Bool) {
         for (index, model) in textModels.enumerated() {
             if let word = model as? Word {
                 if validator.validate(text: word.text) {
                     let indexPath = IndexPath(item: index, section: 0)
-                    scrollToIndexPath(indexPath, position: position, animated: animated)
+                    scroll(toIndexPath: indexPath, position: position, animated: animated)
                 }
             }
         }
     }
     
-    fileprivate func scrollToIndexPath(_ indexPath: IndexPath, position: ScrollPosition, animated: Bool) {
+    fileprivate func scroll(toIndexPath indexPath: IndexPath, position: ScrollPosition, animated: Bool) {
         var scrollPosition: UICollectionViewScrollPosition?
         switch position {
         case .top:
