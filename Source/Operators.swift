@@ -8,9 +8,8 @@
 
 import Foundation
 
-internal func += <K,V>(left: Dictionary<K,V>?, right: Dictionary<K,V>)
-    -> Dictionary<K,V>
-{
+internal func += <K,V>(left: Dictionary<K,V>?, right: Dictionary<K,V>) -> Dictionary<K,V> {
+    
     guard let _left = left else {
         return right
     }

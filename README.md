@@ -29,7 +29,7 @@ Existing solutions like [TTTAttributedLabel](https://github.com/TTTAttributedLab
 Add the following to your `Podfile`
 
 ```ruby
-pod 'SelectableTextView', '~> 0.0.1'
+pod 'SelectableTextView', '~> 1.0.0'
 ```
 
 #### Carthage
@@ -37,7 +37,7 @@ pod 'SelectableTextView', '~> 0.0.1'
 Add the following to your `Cartfile`
 
 ```ruby
-github "jhurray/SelectableTextView" ~> 0.0.1
+github "jhurray/SelectableTextView" ~> 1.0.0
 ```
 
 #### Add to project Manually
@@ -55,12 +55,12 @@ textView.alignment = .center
 textView.numberOfLines = 1
 
 let greetingValidator = MatchesTextValidator(text: "hello")
-textView.registerValidator(validator: greetingValidator) { (validText, validator) in
+textView.registerValidator(_ validator: greetingValidator) { (validText, validator) in
 	// Handle selection of "Hello"
 }
 
 let exclamationValidator = SuffixValidator(suffix: "!")
-textView.registerValidator(validator: exclamationValidator) { (validText, validator) in
+textView.registerValidator(_ validator: exclamationValidator) { (validText, validator) in
 	// Handle selection of "World!"
 }
 
@@ -290,7 +290,7 @@ let text = "The period next to the #Hashtag\0. Will not be highlighted if I use 
 You can get the relative frames of words within the text view with the method below. This is how I set up the stars effect in the first example gif.
 
 ```swift
-public func framesOfWordsMatchingValidator(validator: TextSelectionValidator) -> [CGRect]
+public func framesOfWordsMatchingValidator(_ validator: TextSelectionValidator) -> [CGRect]
 ```
 
 ##### Tab Length

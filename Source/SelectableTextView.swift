@@ -34,13 +34,13 @@ public protocol SelectableTextViewDelegate: class {
     // but the actions they are registered for may differ
     //
     /// Default behavior is to choose the first validator in the composite validator's `validators` array
-    func resolveValidationConflictsForSelectableTextView(textView: SelectableTextView, conflictingValidators: [TextSelectionValidator]) -> TextSelectionValidator
+    func resolveValidationConflicts(forSelectableTextView textView: SelectableTextView, conflictingValidators: [TextSelectionValidator]) -> TextSelectionValidator
     
     /// Defaults to `false`
-    func animateExpansionButtonForSelectableTextView(textView: SelectableTextView) -> Bool
+    func animateExpansionButton(forSelectableTextView textView: SelectableTextView) -> Bool
     
     /// Defaults to `.truncateTail`
-    func truncationModeForWordsThatDontFitForSelectableTextView(textView: SelectableTextView) -> TruncationMode
+    func truncationModeForWordsThatDontFit(forSelectableTextView textView: SelectableTextView) -> TruncationMode
     
     /// Optional, Default empty implementation provideed
     func selectableTextViewContentHeightDidChange(textView: SelectableTextView, oldHeight: CGFloat, newHeight: CGFloat)
@@ -48,7 +48,7 @@ public protocol SelectableTextViewDelegate: class {
 
 public extension SelectableTextViewDelegate {
     
-    public func resolveValidationConflictsForSelectableTextView(textView: SelectableTextView, conflictingValidators: [TextSelectionValidator]) -> TextSelectionValidator {
+    public func resolveValidationConflicts(forSelectableTextView textView: SelectableTextView, conflictingValidators: [TextSelectionValidator]) -> TextSelectionValidator {
         assert(!conflictingValidators.isEmpty, "Conflicting validators should never be empty")
         guard let validator = conflictingValidators.first else {
             return DefaultInvalidTextValidator()
@@ -56,11 +56,11 @@ public extension SelectableTextViewDelegate {
         return validator
     }
     
-    public func truncationModeForWordsThatDontFitForSelectableTextView(textView: SelectableTextView) -> TruncationMode {
+    public func truncationModeForWordsThatDontFit(forSelectableTextView textView: SelectableTextView) -> TruncationMode {
         return .truncateTail
     }
     
-    public func animateExpansionButtonForSelectableTextView(textView: SelectableTextView) -> Bool {
+    public func animateExpansionButton(forSelectableTextView textView: SelectableTextView) -> Bool {
         return false
     }
     
@@ -70,7 +70,7 @@ public extension SelectableTextViewDelegate {
 public typealias TextSelectionAction = (String, TextSelectionValidator) -> Void
 
 @IBDesignable
-public final class SelectableTextView : UIView, TextViewLayoutDataSource, UICollectionViewDataSource, UICollectionViewDelegate {
+public final class SelectableTextView : UIView {
     
     public var textAlignment: TextAlignment = .left {
         didSet {
@@ -297,7 +297,7 @@ public final class SelectableTextView : UIView, TextViewLayoutDataSource, UIColl
         }
     }
     
-    public func registerValidator(validator: TextSelectionValidator!, textSelectionAction:@escaping TextSelectionAction = {_, _ in}) {
+    public func registerValidator(_ validator: TextSelectionValidator!, textSelectionAction:@escaping TextSelectionAction = {_, _ in}) {
         let validatorHasNotBeenRegistered: Bool = validatorIdentifierToActionMapping[validator.identifier] == nil
         assert(validatorHasNotBeenRegistered, "Validator of type \(validator.typeString) with identifier \(validator.identifier) has already been registered")
         guard validatorHasNotBeenRegistered else {
@@ -309,12 +309,12 @@ public final class SelectableTextView : UIView, TextViewLayoutDataSource, UIColl
         reloadData()
     }
     
-    public func removeValidator(validator: TextSelectionValidator) {
+    public func removeValidator(_ validator: TextSelectionValidator) {
         validatorIdentifierToActionMapping.removeValue(forKey: validator.identifier)
         validators = validators.filter { $0.identifier == validator.identifier }
     }
     
-    public func framesOfWordsMatchingValidator(validator: TextSelectionValidator) -> [CGRect] {
+    public func framesOfWordsMatchingValidator(_ validator: TextSelectionValidator) -> [CGRect] {
         var matchingAttributes: [UICollectionViewLayoutAttributes] = []
         let numberOfCells = self.collectionView.numberOfItems(inSection: 0)
         for index in 0..<numberOfCells {
@@ -359,8 +359,8 @@ public final class SelectableTextView : UIView, TextViewLayoutDataSource, UIColl
         var textModels: [TextCellModel] = []
         for model in models {
             if var word = model as? Word {
-                if let validator = validatorForModel(textModel: word) {
-                    word = transformWord(word: word, appearance: validator)
+                if let validator = validator(forModel: word) {
+                    word = transform(word: word, appearance: validator)
                 }
                  textModels.append(word)
             }
@@ -371,7 +371,7 @@ public final class SelectableTextView : UIView, TextViewLayoutDataSource, UIColl
         self.textModels = textModels
     }
     
-    fileprivate func transformWord(word: Word, appearance: TextSelectionAppearance) -> Word {
+    fileprivate func transform(word: Word, appearance: TextSelectionAppearance) -> Word {
         var word = word
         var attributes = _selectionAttributes
         if let extraAttributes = appearance.selectionAttributes {
@@ -385,7 +385,7 @@ public final class SelectableTextView : UIView, TextViewLayoutDataSource, UIColl
         return word
     }
     
-    fileprivate func validatorForModel(textModel: TextCellModel) -> TextSelectionValidator? {
+    fileprivate func validator(forModel textModel: TextCellModel) -> TextSelectionValidator? {
         var validValidators: [TextSelectionValidator] = []
         for validator in validators {
             if validator.validate(text: textModel.text) {
@@ -399,7 +399,7 @@ public final class SelectableTextView : UIView, TextViewLayoutDataSource, UIColl
             return validValidators.first
         default:
             if let delegate = delegate {
-                return delegate.resolveValidationConflictsForSelectableTextView(textView: self, conflictingValidators: validValidators)
+                return delegate.resolveValidationConflicts(forSelectableTextView: self, conflictingValidators: validValidators)
             }
             else {
                 return validValidators.first
@@ -407,7 +407,7 @@ public final class SelectableTextView : UIView, TextViewLayoutDataSource, UIColl
         }
     }
     
-    fileprivate func performActionForSelectionOfModel(textModel: TextCellModel!, validator: TextSelectionValidator!) {
+    fileprivate func performAction(forSelectionOfModel textModel: TextCellModel!, validator: TextSelectionValidator!) {
         if let action = validatorIdentifierToActionMapping[validator.identifier] {
             action(textModel.text, validator)
         }
@@ -416,7 +416,7 @@ public final class SelectableTextView : UIView, TextViewLayoutDataSource, UIColl
 
 
 // MARK: UICollectionViewDataSource + UICollectionViewDelegate
-public extension SelectableTextView {
+extension SelectableTextView: UICollectionViewDataSource, UICollectionViewDelegate {
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let _ = expansionButtonModel else {
@@ -440,7 +440,7 @@ public extension SelectableTextView {
             cell.model = textModels[indexPath.item]
             if let context = layout.malformedTextCellContext,
                 context.indicesOfMalformedCells.contains(indexPath.item),
-                let truncationMode = delegate?.truncationModeForWordsThatDontFitForSelectableTextView(textView: self)
+                let truncationMode = delegate?.truncationModeForWordsThatDontFit(forSelectableTextView: self)
             {
                 switch truncationMode {
                 case .truncateTail:
@@ -459,7 +459,7 @@ public extension SelectableTextView {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.item {
         case textModels.count:
-            let animated = delegate != nil ? delegate!.animateExpansionButtonForSelectableTextView(textView: self) : false
+            let animated = delegate != nil ? delegate!.animateExpansionButton(forSelectableTextView: self) : false
             toggleExpansion(animated: animated)
             break
         default:
@@ -467,8 +467,8 @@ public extension SelectableTextView {
                 return
             }
             let textModel = textModels[indexPath.item]
-            if let validator = validatorForModel(textModel: textModel) {
-                performActionForSelectionOfModel(textModel: textModel, validator: validator)
+            if let validator = validator(forModel: textModel) {
+                performAction(forSelectionOfModel: textModel, validator: validator)
             }
             break
         }
@@ -487,29 +487,29 @@ public extension SelectableTextView {
 
 
 // MARK: TextViewLayoutDataSource
-internal extension SelectableTextView {
+extension SelectableTextView: TextViewLayoutDataSource {
     
-    func lineSpacingForLayout(layout: TextViewLayout) -> CGFloat {
+    func lineSpacing(forLayout layout: TextViewLayout) -> CGFloat {
         return lineSpacing
     }
     
-    func numberOfLinesForLayout(layout: TextViewLayout) -> Int {
+    func numberOfLines(forLayout layout: TextViewLayout) -> Int {
         return numberOfLines
     }
     
-    func numberOfTextModelsForLayout(layout: TextViewLayout) -> Int {
+    func numberOfTextModels(forLayout layout: TextViewLayout) -> Int {
         return textModels.count
     }
     
-    func truncationModeForLayout(layout: TextViewLayout) -> TruncationMode {
+    func truncationMode(forLayout layout: TextViewLayout) -> TruncationMode {
         return truncationMode
     }
     
-    func textAlignmentForLayout(layout: TextViewLayout) -> TextAlignment {
+    func textAlignment(forLayout layout: TextViewLayout) -> TextAlignment {
         return textAlignment
     }
     
-    func cellModelAtIndex(index:Int, layout: TextViewLayout) -> TextCellModel {
+    func cellModel(atIndex index:Int, layout: TextViewLayout) -> TextCellModel {
         return textModels[index]
     }
     
