@@ -19,7 +19,7 @@ fileprivate final class Regex {
     }
 
     func test(input: String) -> Bool {
-        let matches = self.internalExpression.matches(in: input, options: [], range: NSMakeRange(0, input.characters.count))
+        let matches = self.internalExpression.matches(in: input, options: [], range: NSMakeRange(0, input.count))
         return matches.count > 0
     }
 }

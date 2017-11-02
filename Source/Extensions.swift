@@ -33,7 +33,7 @@ internal extension Character {
 internal extension String {
     
     var length: Int {
-        return characters.count
+        return count
     }
     
     func truncate(leadingCharacters: Int) -> String {
