@@ -39,14 +39,14 @@ final internal class TextCellModelFactory {
         }
         
         let text = attributedText.string
-        guard text.characters.count > 0 else {
+        guard text.count > 0 else {
             return textModels
         }
         
         var characterCount: Int = 0
         var currentTextChunkStart = 0
         var currentTextChunkType = TextType.fromCharacter(character: text[text.startIndex])
-        typealias _Index = String.CharacterView.Index
+        typealias _Index = String.Index
         
         func addModelAtIndex(index: _Index) {
             let currentTextChunkEnd = characterCount
@@ -80,7 +80,7 @@ final internal class TextCellModelFactory {
             currentTextChunkStart = currentTextChunkEnd
         }
         
-        for index in text.characters.indices {
+        for index in text.indices {
             let currentCharacterTextType = TextType.fromCharacter(character: text[index])
             if currentTextChunkType != currentCharacterTextType {
                 addModelAtIndex(index: index)
