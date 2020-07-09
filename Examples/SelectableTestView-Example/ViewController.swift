@@ -122,7 +122,7 @@ class ViewController: UIViewController, SelectableTextViewDelegate {
     
     @IBAction func addExpansionButtonToggled(_ sender: UISwitch) {
         if sender.isOn {
-            let attributes: [NSAttributedStringKey: Any] = [HighlightedTextSelectionAttributes.SelectedBackgroundColorAttribute : UIColor.purple.withAlphaComponent(0.5)]
+            let attributes: [NSAttributedString.Key: Any] = [HighlightedTextSelectionAttributes.SelectedBackgroundColorAttribute : UIColor.purple.withAlphaComponent(0.5)]
             let collapsedNumberOfLines = max(Int(numberOfLinesStepper.value), 1)
             textView.addExpansionButton(collapsedState: ("More...", collapsedNumberOfLines),
                                         expandedState: ("Less", 0),
@@ -139,7 +139,7 @@ class ViewController: UIViewController, SelectableTextViewDelegate {
             let particleEmitter = CAEmitterLayer()
             let center = CGPoint(x: frame.origin.x + frame.width / 2, y: frame.origin.y + frame.height / 2)
             particleEmitter.emitterPosition = center
-            particleEmitter.emitterShape = kCAEmitterLayerPoint
+            particleEmitter.emitterShape = CAEmitterLayerEmitterShape.point
             particleEmitter.emitterSize = frame.size
             
             let cell = makeEmitterCell()

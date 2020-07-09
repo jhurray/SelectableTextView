@@ -15,7 +15,7 @@ internal struct TextExpansionButtonModel {
     let collapsedText: String
     let expandedNumberOfLines: Int
     let collapsedNumberOfLines: Int
-    let attributes: [NSAttributedStringKey: Any]?
+    let attributes: [NSAttributedString.Key: Any]?
     
     var numberOfLines: Int {
         return expanded ? expandedNumberOfLines : collapsedNumberOfLines

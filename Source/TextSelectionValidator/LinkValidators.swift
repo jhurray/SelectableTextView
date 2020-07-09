@@ -15,21 +15,21 @@ public protocol LinkValidatorAttributes: TextSelectionValidator {
 
 public extension LinkValidatorAttributes {
     
-    public var tintColor: UIColor? {
+    var tintColor: UIColor? {
         return nil
     }
     
-    public var underlined: Bool {
+    var underlined: Bool {
         return true
     }
     
-    public var selectionAttributes: [NSAttributedStringKey : Any]? {
-        var attributes: [NSAttributedStringKey: Any] = [:]
+    var selectionAttributes: [NSAttributedString.Key : Any]? {
+        var attributes: [NSAttributedString.Key: Any] = [:]
         if let tintColor = tintColor {
-            attributes[NSAttributedStringKey.foregroundColor] = tintColor
+            attributes[NSAttributedString.Key.foregroundColor] = tintColor
         }
         if underlined {
-            attributes[NSAttributedStringKey.underlineStyle] = NSUnderlineStyle.styleSingle.rawValue
+            attributes[NSAttributedString.Key.underlineStyle] = NSUnderlineStyle.single.rawValue
         }
         return attributes
     }
@@ -60,7 +60,7 @@ public struct UnsafeLinkValidator: ContainerTextSelectionValidator, LinkValidato
     
     private(set) public var validator: TextSelectionValidator =  PrefixValidator(prefix: "http://")
     
-    private(set) public var selectionAttributes: [NSAttributedStringKey: Any]? = [NSAttributedStringKey.foregroundColor: UIColor.red]
+    private(set) public var selectionAttributes: [NSAttributedString.Key: Any]? = [NSAttributedString.Key.foregroundColor: UIColor.red]
 }
 
 
