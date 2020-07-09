@@ -11,7 +11,7 @@ import Foundation
 // MARK: Interface Builder
 public extension SelectableTextView {
     
-    public override func prepareForInterfaceBuilder() {
+    override func prepareForInterfaceBuilder() {
         lineSpacing = 1
         lineBreakMode = .wordWrap
         textAlignment = .left

@@ -12,7 +12,7 @@ import Foundation
 public protocol TextSelectionValidator: TextSelectionAppearance {
     
     var identifier: String {get}
-    var selectionAttributes: [NSAttributedStringKey: Any]? {get}
+    var selectionAttributes: [NSAttributedString.Key: Any]? {get}
     var replacementText: String? {get}
     
     func validate(text: String) -> Bool
@@ -20,18 +20,18 @@ public protocol TextSelectionValidator: TextSelectionAppearance {
 
 public extension TextSelectionValidator {
     
-    public var selectionAttributes: [NSAttributedStringKey: Any]? {
+    var selectionAttributes: [NSAttributedString.Key: Any]? {
         return nil
     }
     
-    public var replacementText: String?  {
+    var replacementText: String?  {
         return nil
     }
 }
 
 internal extension TextSelectionValidator {
     
-    internal var typeString: String {
+    var typeString: String {
         return String(describing: type(of: self))
     }
 }
@@ -47,11 +47,11 @@ public protocol ContainerTextSelectionValidator: TextSelectionValidator {
 
 public extension ContainerTextSelectionValidator {
     
-    public var identifier: String {
+    var identifier: String {
         return "\(typeString)." + validator.identifier
     }
     
-    public func validate(text: String) -> Bool {
+    func validate(text: String) -> Bool {
         return validator.validate(text: text)
     }
 }
@@ -68,13 +68,13 @@ public protocol CompositeTextSelectionValidator: TextSelectionValidator {
 
 public extension CompositeTextSelectionValidator {
     
-    public var identifier: String {
+    var identifier: String {
         return validators.reduce("\(typeString)", { (compositeIdentifier: String, validator: TextSelectionValidator) -> String in
             return "\(compositeIdentifier).\(validator.identifier)"
         })
     }
     
-    public func validate(text: String) -> Bool {
+    func validate(text: String) -> Bool {
         for validator in validators {
             if validator.validate(text: text) == false {
                 return false

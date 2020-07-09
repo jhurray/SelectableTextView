@@ -43,12 +43,12 @@ internal extension String {
         return start.appending(truncation)
     }
     
-    func width(withAttributes attributes: [NSAttributedStringKey: Any]?) -> CGFloat {
+    func width(withAttributes attributes: [NSAttributedString.Key: Any]?) -> CGFloat {
         let attributedString = NSAttributedString(string: self, attributes: attributes)
         return attributedString.size().width
     }
     
-    func truncatedString(fittingWidth width: CGFloat, attributes: [NSAttributedStringKey: Any]?) -> String? {
+    func truncatedString(fittingWidth width: CGFloat, attributes: [NSAttributedString.Key: Any]?) -> String? {
         
         func passesTest(leadingCharacters: Int) -> Bool {
             let truncatedString = truncate(leadingCharacters: leadingCharacters)

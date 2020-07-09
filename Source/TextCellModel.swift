@@ -20,7 +20,7 @@ internal protocol TextCellModel {
     var range: Range<Int> {get}
     var text: String {get}
     var displayText: String? {get}
-    var attributes: [NSAttributedStringKey: Any] {get}
+    var attributes: [NSAttributedString.Key: Any] {get}
     var attributedText: NSAttributedString {get}
     var type: TextType {get}
     var highlightable: Bool {get}
@@ -39,7 +39,7 @@ internal extension TextCellModel {
 internal struct Word: TextCellModel {
     var range: Range<Int>
     var text: String
-    var attributes: [NSAttributedStringKey: Any]
+    var attributes: [NSAttributedString.Key: Any]
     var displayText: String?
     var highlightable: Bool
     
@@ -57,7 +57,7 @@ internal struct Space: TextCellModel {
     private let space = " "
     var range: Range<Int>
     var length: Int
-    var attributes: [NSAttributedStringKey: Any]
+    var attributes: [NSAttributedString.Key: Any]
     
     var type: TextType {
         return .space
@@ -74,7 +74,7 @@ internal struct Space: TextCellModel {
 
 internal struct NewLine: TextCellModel {
     var range: Range<Int>
-    var attributes: [NSAttributedStringKey: Any]
+    var attributes: [NSAttributedString.Key: Any]
     
     var type: TextType {
         return .newLine
@@ -96,7 +96,7 @@ public struct TabTextModelConfig {
 
 internal struct Tab: TextCellModel {
     var range: Range<Int>
-    var attributes: [NSAttributedStringKey: Any]
+    var attributes: [NSAttributedString.Key: Any]
     
     var type: TextType {
         return .tab

@@ -48,7 +48,7 @@ public protocol SelectableTextViewDelegate: class {
 
 public extension SelectableTextViewDelegate {
     
-    public func resolveValidationConflicts(forSelectableTextView textView: SelectableTextView, conflictingValidators: [TextSelectionValidator]) -> TextSelectionValidator {
+    func resolveValidationConflicts(forSelectableTextView textView: SelectableTextView, conflictingValidators: [TextSelectionValidator]) -> TextSelectionValidator {
         assert(!conflictingValidators.isEmpty, "Conflicting validators should never be empty")
         guard let validator = conflictingValidators.first else {
             return DefaultInvalidTextValidator()
@@ -56,15 +56,15 @@ public extension SelectableTextViewDelegate {
         return validator
     }
     
-    public func truncationModeForWordsThatDontFit(forSelectableTextView textView: SelectableTextView) -> TruncationMode {
+    func truncationModeForWordsThatDontFit(forSelectableTextView textView: SelectableTextView) -> TruncationMode {
         return .truncateTail
     }
     
-    public func animateExpansionButton(forSelectableTextView textView: SelectableTextView) -> Bool {
+    func animateExpansionButton(forSelectableTextView textView: SelectableTextView) -> Bool {
         return false
     }
     
-    public func selectableTextViewContentHeightDidChange(textView: SelectableTextView, oldHeight: CGFloat, newHeight: CGFloat) {}
+    func selectableTextViewContentHeightDidChange(textView: SelectableTextView, oldHeight: CGFloat, newHeight: CGFloat) {}
 }
 
 public typealias TextSelectionAction = (String, TextSelectionValidator) -> Void
@@ -133,7 +133,7 @@ public final class SelectableTextView : UIView {
             setNeedsLayout()
         }
     }
-    public var selectionAttributes: [NSAttributedStringKey: AnyObject]? {
+    public var selectionAttributes: [NSAttributedString.Key: AnyObject]? {
         didSet {
             reloadData()
         }
@@ -172,27 +172,27 @@ public final class SelectableTextView : UIView {
     fileprivate var validators: [TextSelectionValidator] = []
     fileprivate var expansionButtonModel: TextExpansionButtonModel? = nil
     fileprivate var ContentSizeObservationContext: UnsafeMutableRawPointer? = nil
-    fileprivate var defaultAttributes: [NSAttributedStringKey: Any] {
-        let attributes: [NSAttributedStringKey: Any] = [
-            NSAttributedStringKey.foregroundColor: textColor,
-            NSAttributedStringKey.font: font
+    fileprivate var defaultAttributes: [NSAttributedString.Key: Any] {
+        let attributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.foregroundColor: textColor,
+            NSAttributedString.Key.font: font
             ]
         return attributes
     }
-    fileprivate var _selectionAttributes: [NSAttributedStringKey: Any] {
-        let defaultSelectionAttributes: [NSAttributedStringKey: Any] = [
-            NSAttributedStringKey.foregroundColor: tintColor,
-            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: font.pointSize + 2)
+    fileprivate var _selectionAttributes: [NSAttributedString.Key: Any] {
+        let defaultSelectionAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.foregroundColor: tintColor ?? .black,
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: font.pointSize + 2)
             ]
         return selectionAttributes += defaultSelectionAttributes
     }
-    fileprivate var defaultExpansionAttributes: [NSAttributedStringKey: Any] {
+    fileprivate var defaultExpansionAttributes: [NSAttributedString.Key: Any] {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
-        let defaultSelectionAttributes: [NSAttributedStringKey: Any] = [
-            NSAttributedStringKey.foregroundColor: tintColor,
-            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: font.pointSize - 2),
-            NSAttributedStringKey.paragraphStyle: paragraphStyle
+        let defaultSelectionAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.foregroundColor: tintColor ?? .black,
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: font.pointSize - 2),
+            NSAttributedString.Key.paragraphStyle: paragraphStyle
             ]
         return selectionAttributes += defaultSelectionAttributes
     }
@@ -250,7 +250,7 @@ public final class SelectableTextView : UIView {
     // MARK: Overrides
     public override func layoutSubviews() {
         super.layoutSubviews()
-        collectionView.frame = UIEdgeInsetsInsetRect(bounds, textContainerInsets)
+        collectionView.frame = bounds.inset(by: textContainerInsets)
     }
     
     public override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -258,7 +258,7 @@ public final class SelectableTextView : UIView {
     }
     
     // MARK: Public
-    public func addExpansionButton(collapsedState: (text: String, lines: Int), expandedState: (text: String, lines: Int), attributes: [NSAttributedStringKey: Any]? = nil) {
+    public func addExpansionButton(collapsedState: (text: String, lines: Int), expandedState: (text: String, lines: Int), attributes: [NSAttributedString.Key: Any]? = nil) {
         assert(collapsedState.lines != 0)
         assert(expandedState.lines == 0 || collapsedState.lines < expandedState.lines)
         let textAttributes = attributes += defaultExpansionAttributes
@@ -526,7 +526,7 @@ public extension SelectableTextView {
         collectionView.addObserver(self, forKeyPath: ContentSizeKeyPath, options: NSKeyValueObservingOptions.old.union(.new), context: &ContentSizeObservationContext)
     }
     
-    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == ContentSizeKeyPath && context == &ContentSizeObservationContext {
             if let change = change as? [NSKeyValueChangeKey: NSValue],
                 let oldSize = change[NSKeyValueChangeKey.oldKey]?.cgSizeValue,

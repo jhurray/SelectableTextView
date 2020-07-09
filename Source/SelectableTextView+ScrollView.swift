@@ -30,7 +30,7 @@ public extension SelectableTextView {
     
     /// Scrolls to the first instance of the word
     /// Attempts to match the text and display text of a word
-    public func scroll(toWord word: String, position: ScrollPosition, animated: Bool) {
+    func scroll(toWord word: String, position: ScrollPosition, animated: Bool) {
         for (index, model) in textModels.enumerated() {
             if let _word = model as? Word {
                 if _word.text == word || _word.displayText == word {
@@ -42,7 +42,7 @@ public extension SelectableTextView {
     }
     
     /// Scrolls to the first instance of a word that passes the provided TextSelectionValidator
-    public func scroll(toWordPassingValidator validator: TextSelectionValidator, position: ScrollPosition, animated: Bool) {
+    func scroll(toWordPassingValidator validator: TextSelectionValidator, position: ScrollPosition, animated: Bool) {
         for (index, model) in textModels.enumerated() {
             if let word = model as? Word {
                 if validator.validate(text: word.text) {
@@ -54,44 +54,44 @@ public extension SelectableTextView {
     }
     
     fileprivate func scroll(toIndexPath indexPath: IndexPath, position: ScrollPosition, animated: Bool) {
-        var scrollPosition: UICollectionViewScrollPosition?
+        var scrollPosition: UICollectionView.ScrollPosition?
         switch position {
         case .top:
-            scrollPosition = UICollectionViewScrollPosition.top
+            scrollPosition = UICollectionView.ScrollPosition.top
         case .center:
-            scrollPosition = UICollectionViewScrollPosition.centeredVertically
+            scrollPosition = UICollectionView.ScrollPosition.centeredVertically
         case .bottom:
-            scrollPosition = UICollectionViewScrollPosition.top
+            scrollPosition = UICollectionView.ScrollPosition.top
         }
         collectionView.scrollToItem(at: indexPath, at: scrollPosition!, animated: animated)
     }
     
     // MARK: UIScrollView Event Forwarding
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollDelegate?.selectableTextViewDidScroll(scrollView)
     }
     
-    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         scrollDelegate?.selectableTextViewWillBeginDragging(scrollView)
     }
 
-    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         scrollDelegate?.selectableTextViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
     }
 
-    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         scrollDelegate?.selectableTextViewDidEndDragging(scrollView, willDecelerate: decelerate)
     }
 
-    public func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         scrollDelegate?.selectableTextViewWillBeginDecelerating(scrollView)
     }
 
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         scrollDelegate?.selectableTextViewDidEndDecelerating(scrollView)
     }
 
-    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         scrollDelegate?.selectableTextViewDidEndScrollingAnimation(scrollView)
     }
 }

@@ -21,9 +21,9 @@ internal protocol TextViewLayoutDataSource: class {
 fileprivate struct AttributeKey: Hashable {
     var indexPath: IndexPath
     var kind: String
-    
-    fileprivate var hashValue: Int {
-        return kind.hashValue ^ indexPath.hashValue
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(kind.hashValue ^ indexPath.hashValue)
     }
 }
 
@@ -440,12 +440,12 @@ internal final class TextViewLayout: UICollectionViewLayout {
         }
     }
     
-    open override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+    public override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         let key = AttributeKey(indexPath: indexPath, kind: TextCell.kind)
         return self.cellAttributes[key]
     }
     
-    open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+    public override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         return false
     }
     
